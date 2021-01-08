@@ -39,7 +39,7 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
         
-      # Publish project
-      - name: Publish
-        run: dotnet publish
-      
+      # Publish project     
+      - name: dotnet publish
+        run: |
+              dotnet publish -c Release -o dotnetcorewebapp 
