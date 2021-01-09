@@ -42,4 +42,12 @@ jobs:
       # Publish project     
       - name: dotnet publish
         run: |
-              dotnet publish -c Release -o dotnetcorewebapp 
+              dotnet publish -c Release -o EmployeeKavach
+              
+      # Upload on Github Artifacts  
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Publish server
+          path: EmployeeKavach
+ 
+
