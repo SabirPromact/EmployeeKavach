@@ -58,7 +58,7 @@ jobs:
       # Deploy Application
       - name: Deploy Application
         shell: cmd
-        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -source:contentPath="D:\a\EmployeeKavach\EmployeeKavach\bin\Release\netcoreapp3.1\" -dest:contentPath="C:\inetpub\wwwroot\EmployeeKavach\",computerName="https://ec2-3-137-154-146.us-east-2.compute.amazonaws.com:8172/msdeploy.axd?site=EmployeeKavach",username="Administrator",password="Sabir2021",authtype="Basic",includeAcls="False" -verb:sync -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -allowUntrusted'
+        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -source:contentPath="D:\a\EmployeeKavach\EmployeeKavach\bin\Release\netcoreapp3.1\" -dest:contentPath="C:\inetpub\wwwroot\EmployeeKavach\",computerName="https://ec2-3-137-154-146.us-east-2.compute.amazonaws.com:8172/msdeploy.axd?site=EmployeeKavach",username="Administrator",password="Sabir2021",authtype="Basic",includeAcls="False" -verb:sync -enableRule:DoNotDeleteRule -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -allowUntrusted'
           
       # Start Application Pool      
       - name: Start Application Pool
