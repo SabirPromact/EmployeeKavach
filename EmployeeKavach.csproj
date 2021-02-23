@@ -5,6 +5,10 @@
     <UseMsdeployExe>true</UseMsdeployExe>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Audit.Mvc.Core" Version="16.3.3" />
+  </ItemGroup>
+
 
 
 </Project>
