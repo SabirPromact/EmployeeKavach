@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -37,7 +37,7 @@ jobs:
 
       # Build project
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build -c Release --no-restore        
         
       # Publish project     
       - name: dotnet publish
@@ -48,6 +48,20 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: Publish server
-          path: EmployeeKavach
- 
-
+          path: EmployeeKavach            
+        
+      # Stop Application Pool      
+      - name: Stop Application Pool
+        shell: cmd
+        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="EmployeeKavach",recycleMode="StopAppPool",computerName="https://ec2-3-137-154-146.us-east-2.compute.amazonaws.com:8172/msdeploy.axd?site=EmployeeKavach",username="Administrator",password="Sabir2021",authtype="Basic"'
+    
+      # Deploy Application
+      - name: Deploy Application
+        shell: cmd
+        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -source:contentPath="D:\a\EmployeeKavach\EmployeeKavach\bin\Release\netcoreapp3.1\" -dest:contentPath="C:\inetpub\wwwroot\EmployeeKavach\",computerName="https://ec2-3-137-154-146.us-east-2.compute.amazonaws.com:8172/msdeploy.axd?site=EmployeeKavach",username="Administrator",password="Sabir2021",authtype="Basic",includeAcls="False" -verb:sync -enableRule:DoNotDeleteRule -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -allowUntrusted'
+          
+      # Start Application Pool      
+      - name: Start Application Pool
+        shell: cmd
+        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="EmployeeKavach",recycleMode="StartAppPool",computerName="https://ec2-3-137-154-146.us-east-2.compute.amazonaws.com:8172/msdeploy.axd?site=EmployeeKavach",username="Administrator",password="Sabir2021",authtype="Basic"'
+    
